@@ -9,6 +9,6 @@ import javax.persistence.Id
 data class Course(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Int?,
-    val title:String,
-    val category:String
+    var title:String,
+    var category:String
 )
