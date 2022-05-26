@@ -79,4 +79,33 @@ class CourseIntegrationTest {
         Assertions.assertEquals(1,course?.id)
     }
 
+    @Test
+    fun updateCourse(){
+        val id = 1
+        val courseDTO = CourseDTO(1,"learning JAVAEE","DEV")
+        val courseDTOResponse = webTestClient
+            .put()
+            .uri("/api/v1/courses/{id}",id)
+            .bodyValue(courseDTO)
+            .exchange()
+            .expectStatus().is2xxSuccessful
+            .expectBody(CourseDTO::class.java)
+            .returnResult()
+            .responseBody
+        Assertions.assertEquals("learning JAVAEE",courseDTOResponse?.title)
+    }
+
+    @Test
+    fun deleteById(){
+
+        val id = 1
+        webTestClient
+            .delete()
+            .uri("/api/v1/courses/{id}",id)
+            .exchange()
+            .expectStatus().isOk
+
+    }
+
+
 }
