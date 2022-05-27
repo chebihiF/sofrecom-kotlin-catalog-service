@@ -21,6 +21,8 @@ class CourseController(val courseService: ICourseService) {
     /*@GetMapping
     fun getCourses() = courseService.getCourses()*/
 
+    //fun findCourseByInstructor()
+
     @GetMapping("/{id}")
     fun getCoursesById(@PathVariable("id") id: Int):CourseDTO = courseService.getCourseById(id)
 

@@ -15,3 +15,24 @@ data class Course(
     @JoinColumn(name = "instructor_id")
     val instructor: Instructor? = null
 )
+{
+    @JvmOverloads
+    fun signeCourse(title: String = "",data:String=""){
+        println("Test")
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun printCourse(title:String){
+            println(title)
+        }
+    }
+
+    object Authentication {
+        @JvmStatic
+        fun authenticate(login: String, password:String){
+            println("your are logged IN")
+        }
+    }
+}

@@ -5,9 +5,13 @@ import sofrecom.it.coursecatalogservice.courses.Course
 import sofrecom.it.coursecatalogservice.courses.CourseDTO
 import sofrecom.it.coursecatalogservice.courses.CourseRepository
 import sofrecom.it.coursecatalogservice.courses.execeptions.CourseNotFoundException
+import sofrecom.it.coursecatalogservice.instructor.Instructor
+import sofrecom.it.coursecatalogservice.instructor.InstructorDTO
+import sofrecom.it.coursecatalogservice.instructor.InstructorRepository
+import sofrecom.it.coursecatalogservice.instructor.exceptions.InstructorNotFoundException
 
 @Service
-class CourseService(val courseRepository: CourseRepository) : ICourseService {
+class CourseService(val courseRepository: CourseRepository, val instructorRepository: InstructorRepository) : ICourseService {
 
     override fun addCourse(courseDTO: CourseDTO): CourseDTO {
         val course = courseDTO.let {
@@ -65,6 +69,19 @@ class CourseService(val courseRepository: CourseRepository) : ICourseService {
             throw CourseNotFoundException("course $id not found")
         }
     }
+
+    override fun findCourseByInstructor(id: Int): List<CourseDTO>  {
+
+        val existInstructor = instructorRepository.findById(id)
+        return if(existInstructor.isPresent){
+            courseRepository.findCoursesByInstructor(existInstructor.get().let { Instructor(it.id,it.name) }).map { CourseDTO(it.id,it.title,it.category) }
+        }else
+            throw InstructorNotFoundException("instructor not found")
+
+
+    }
+    //courseRepository.findCoursesByInstructor(instructorDTO.let { Instructor(it.id,it.name) }).map { CourseDTO(it.id,it.title,it.category) }
+
 
 
 }

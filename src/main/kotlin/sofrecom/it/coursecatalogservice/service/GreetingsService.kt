@@ -1,5 +1,6 @@
 package sofrecom.it.coursecatalogservice.service
 
+import MyCourse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -10,5 +11,8 @@ class GreetingsService : IGreetingsService {
     lateinit var message: String
 
     override fun retrieveGreetings(name:String) = "$name, $message"
+
+    val myCourse: MyCourse = MyCourse(1,"test")
+
 
 }
