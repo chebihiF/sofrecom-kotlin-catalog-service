@@ -10,10 +10,10 @@ data class Instructor(
     val id: Int?,
     val name: String,
     @OneToMany(mappedBy = "instructor", cascade = [CascadeType.ALL])
-    val courses: List<Course>
+    val courses: List<Course>? = null
 ){
     override fun toString(): String {
-        return "Instructor(id=$id, name='$name', courses=${courses.map { it.title }})"
+        return "Instructor(id=$id, name='$name', courses=${courses?.map { it.title }})"
     }
 
     override fun equals(other: Any?): Boolean {

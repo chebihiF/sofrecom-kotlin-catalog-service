@@ -5,5 +5,5 @@ import sofrecom.it.coursecatalogservice.courses.Course
 data class InstructorDTO(
     val id: Int?,
     val name: String,
-    val courses: List<Course>
+    val courses: List<Course>? = null
 )
