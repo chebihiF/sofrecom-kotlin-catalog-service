@@ -1,15 +1,18 @@
 package sofrecom.it.coursecatalogservice.courses
 
 import org.springframework.http.HttpStatus
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/courses")
+@Validated
 class CourseController(val courseService: ICourseService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun addCourse(@RequestBody course: CourseDTO):CourseDTO = courseService.addCourse(course)
+    fun addCourse(@RequestBody @Valid course: CourseDTO):CourseDTO = courseService.addCourse(course)
 
     @GetMapping
     fun getCourses() = courseService.getCourses()

@@ -36,7 +36,7 @@ class CourseIntegrationTest {
 
     @Test
     fun addCourse(){
-        val courseDTO = CourseDTO(null,"learning DevOps","software architect")
+        val courseDTO = CourseDTO(null,"","software architect")
         val courseDTOResponse = webTestClient
             .post()
             .uri("/api/v1/courses")
