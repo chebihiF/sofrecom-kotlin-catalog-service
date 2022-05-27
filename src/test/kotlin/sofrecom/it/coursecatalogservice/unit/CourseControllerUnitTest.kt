@@ -9,13 +9,10 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
-import org.springframework.test.web.reactive.server.expectBodyList
 import org.springframework.web.util.UriComponentsBuilder
-import sofrecom.it.coursecatalogservice.controller.GreetingsController
-import sofrecom.it.coursecatalogservice.courses.Course
 import sofrecom.it.coursecatalogservice.courses.CourseController
 import sofrecom.it.coursecatalogservice.courses.CourseDTO
-import sofrecom.it.coursecatalogservice.courses.CourseService
+import sofrecom.it.coursecatalogservice.courses.services.CourseService
 
 @WebMvcTest(controllers =[CourseController::class])
 @ActiveProfiles("test")

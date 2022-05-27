@@ -1,11 +1,13 @@
-package sofrecom.it.coursecatalogservice.courses
+package sofrecom.it.coursecatalogservice.courses.services
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
+import sofrecom.it.coursecatalogservice.courses.Course
+import sofrecom.it.coursecatalogservice.courses.CourseDTO
+import sofrecom.it.coursecatalogservice.courses.CourseRepository
 import sofrecom.it.coursecatalogservice.courses.execeptions.CourseNotFoundException
 
 @Service
-class CourseService(val courseRepository:CourseRepository) : ICourseService {
+class CourseService(val courseRepository: CourseRepository) : ICourseService {
 
     override fun addCourse(courseDTO: CourseDTO): CourseDTO {
         val course = courseDTO.let {
@@ -23,8 +25,8 @@ class CourseService(val courseRepository:CourseRepository) : ICourseService {
 
     override fun getCoursesByKeyword(keyword: String?): List<CourseDTO> {
         return keyword?.let {
-            courseRepository.findCoursesByKeyword(it).map { CourseDTO(it.id,it.title,it.category)}
-        }?: courseRepository.findAll().map { CourseDTO(it.id,it.title,it.category)}
+            courseRepository.findCoursesByKeyword(it).map { CourseDTO(it.id,it.title,it.category) }
+        }?: courseRepository.findAll().map { CourseDTO(it.id,it.title,it.category) }
     }
 
     override fun getCourseById(id: Int): CourseDTO {

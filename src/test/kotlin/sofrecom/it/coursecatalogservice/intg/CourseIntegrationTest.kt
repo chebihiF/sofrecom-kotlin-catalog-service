@@ -21,8 +21,6 @@ import sofrecom.it.coursecatalogservice.initCourses
 @AutoConfigureWebTestClient
 class CourseIntegrationTest {
 
-
-
     @Autowired
     lateinit var webTestClient: WebTestClient
 

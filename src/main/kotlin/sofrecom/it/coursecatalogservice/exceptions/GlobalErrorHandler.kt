@@ -1,4 +1,4 @@
-package sofrecom.it.coursecatalogservice.courses.execeptions
+package sofrecom.it.coursecatalogservice.exceptions
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
