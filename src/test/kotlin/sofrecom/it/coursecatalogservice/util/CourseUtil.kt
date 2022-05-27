@@ -7,5 +7,5 @@ fun initCourses() = listOf(
     Course(1,"learning Angular basics", "Dev"),
     Course(2,"learning Spring", "Back-End"),
     Course(3,"learning Angular advanced", "front"),
-    Course(4,"learning flutter", "mobile")
+    Course(4,"learning flutter", "mobile advanced")
 )
