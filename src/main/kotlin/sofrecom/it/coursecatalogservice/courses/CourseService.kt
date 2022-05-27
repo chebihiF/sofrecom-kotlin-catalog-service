@@ -20,6 +20,13 @@ class CourseService(val courseRepository:CourseRepository) : ICourseService {
 
     override fun getCourses() : List<CourseDTO> = courseRepository.findAll().map { CourseDTO(it.id,it.title,it.category) }
 
+
+    override fun getCoursesByKeyword(keyword: String?): List<CourseDTO> {
+        return keyword?.let {
+            courseRepository.findCoursesByKeyword(it).map { CourseDTO(it.id,it.title,it.category)}
+        }?: courseRepository.findAll().map { CourseDTO(it.id,it.title,it.category)}
+    }
+
     override fun getCourseById(id: Int): CourseDTO {
         val courseExists = courseRepository.findById(id)
         return if (courseExists.isPresent)

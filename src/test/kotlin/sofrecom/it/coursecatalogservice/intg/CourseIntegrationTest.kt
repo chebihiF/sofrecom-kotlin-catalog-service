@@ -1,5 +1,6 @@
 package sofrecom.it.coursecatalogservice.intg
 
+import io.mockk.every
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -9,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.web.util.UriComponentsBuilder
 import sofrecom.it.coursecatalogservice.courses.Course
 import sofrecom.it.coursecatalogservice.courses.CourseDTO
 import sofrecom.it.coursecatalogservice.courses.CourseRepository
@@ -121,7 +123,26 @@ class CourseIntegrationTest {
             .uri("/api/v1/courses/{id}",id)
             .exchange()
             .expectStatus().isOk
+    }
 
+    @Test
+    fun getCoursesByKeyword(){
+        val keyword: String = "advanced"
+
+        val uri = UriComponentsBuilder.fromUriString("/api/v1/courses")
+            .queryParam("keyword",keyword)
+            .toUriString()
+
+        val responseBody = webTestClient
+            .get()
+            .uri(uri)
+            .exchange()
+            .expectStatus().is2xxSuccessful
+            .expectBodyList(CourseDTO::class.java)
+            .returnResult()
+            .responseBody
+
+        Assertions.assertEquals(2, responseBody!!.size)
     }
 
 

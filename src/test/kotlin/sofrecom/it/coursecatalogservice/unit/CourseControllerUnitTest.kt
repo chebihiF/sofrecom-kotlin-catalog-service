@@ -9,8 +9,12 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.reactive.server.expectBodyList
+import org.springframework.web.util.UriComponentsBuilder
 import sofrecom.it.coursecatalogservice.controller.GreetingsController
+import sofrecom.it.coursecatalogservice.courses.Course
 import sofrecom.it.coursecatalogservice.courses.CourseController
+import sofrecom.it.coursecatalogservice.courses.CourseDTO
 import sofrecom.it.coursecatalogservice.courses.CourseService
 
 @WebMvcTest(controllers =[CourseController::class])
@@ -23,6 +27,36 @@ class CourseControllerUnitTest {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
+
+
+    @Test
+    fun getCoursesByKeyword(){
+        val keyword: String = "advanced"
+        every{
+            courseService.getCoursesByKeyword(any())
+        }returns listOf(
+            CourseDTO(1,"learning Angular basics", "Dev"),
+            CourseDTO(2,"learning Spring", "Back-End"),
+            CourseDTO(3,"learning Angular advanced", "front"),
+            CourseDTO(4,"learning flutter", "mobile advanced")
+        )
+
+        val uri = UriComponentsBuilder.fromUriString("/api/v1/courses")
+            .queryParam("keyword",keyword)
+            .toUriString()
+
+        val responseBody = webTestClient
+            .get()
+            .uri(uri)
+            .exchange()
+            .expectStatus().is2xxSuccessful
+            .expectBodyList(CourseDTO::class.java)
+            .returnResult()
+            .responseBody
+
+        Assertions.assertEquals(2, responseBody!!.size)
+    }
+
 
     @Test
     fun getCourseById(){
