@@ -36,7 +36,7 @@ class CourseIntegrationTest {
 
     @Test
     fun addCourse(){
-        val courseDTO = CourseDTO(null,"","software architect")
+        val courseDTO = CourseDTO(null,"learning DevOps","software architect")
         val courseDTOResponse = webTestClient
             .post()
             .uri("/api/v1/courses")
@@ -48,6 +48,23 @@ class CourseIntegrationTest {
             .responseBody
         Assertions.assertNotNull(courseDTOResponse!!.id)
     }
+
+    @Test
+    fun addCourseException(){
+        val courseDTO = CourseDTO(null,"","software architect")
+        val errorResponse = webTestClient
+            .post()
+            .uri("/api/v1/courses")
+            .bodyValue(courseDTO)
+            .exchange()
+            .expectStatus().isBadRequest
+            .expectBody(String::class.java)
+            .returnResult()
+            .responseBody
+
+        Assertions.assertEquals("CourseDTO.title must be not blank",errorResponse)
+    }
+
 
     @Test
     fun getCourses(){

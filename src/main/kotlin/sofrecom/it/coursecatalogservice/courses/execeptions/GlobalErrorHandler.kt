@@ -24,9 +24,10 @@ class GlobalErrorHandler : ResponseEntityExceptionHandler(){
             .map {
                 error -> error.defaultMessage
             }
-        println("######### $errors #########")
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.joinToString(","))
     }
+
+
 
 }
